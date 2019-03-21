@@ -1,9 +1,12 @@
-# KOI_Study
-2015 - 2017 KOI 준비시 풀었던 문제들 풀이 소스 코드
+# Algorithm-Study
+알고리즘 공부를 하며 푼 문제들
 
+
+====site====
 acmicpc.net
 
 dovlet.com
+============
 
 
 =====꼬리표=====
