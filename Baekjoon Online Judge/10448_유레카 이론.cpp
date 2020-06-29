@@ -1,28 +1,37 @@
+#pragma warning (disable : 4996)
 #include <stdio.h>
 
-int num[50];
+int main() {
+	int n, k, data[45];
 
-int main(void)
-{
-    int i,j,l,k,t,tt;
-    for(i=1;i<=45;i++) num[i]=i*(i+1)/2;
-    scanf("%d",&t);
-    for(tt=1;tt<=t;tt++)
-    {
-        scanf("%d",&k);
-        for(i=1;i<=45;i++) { if(num[i]>=k) break; } i--;
-        for(i=i;i>=1;i--)
-        {
-            for(j=i;j>=1;j--)
-            {
-                for(l=j;l>=1;l--)
-                {
-                    if(num[i]+num[j]+num[l]==k) { printf("1\n"); break; }
-                }
-                if(l>=1) break;
-            }
-            if(j>=1) break;
-        }
-        if(i==0) printf("0\n");
-    }
+	data[0] = 1;
+
+	for (int i = 1; i < 45; i++)
+		data[i] = data[i - 1] + i + 1;
+
+	scanf("%d", &n);
+
+	for (int i = 0; i < n; i++) {
+		int res = 0;
+		scanf("%d", &k);
+
+		for (int a = 0; a < 45; a++) {
+			for (int b = 0; b < 45; b++) {
+				for (int c = 0; c < 45; c++) {
+					if (k == data[a] + data[b] + data[c]) {
+						res = 1;
+						break;
+					}
+				}
+				if (res)
+					break;
+			}
+			if (res)
+				break;
+		}
+
+		printf("%d\n", res);
+	}
+
+	return 0;
 }
