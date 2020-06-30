@@ -19,13 +19,13 @@ void fill(int l, int w, int h, int n, bool *possible, int *cnt) {
 		return;
 
 	for (int i = 0; i < n; i++) {
-		if (cube[i].second > 0 && l >= pow(2, cube[i].first) && w >= pow(2, cube[i].first) && h >= pow(2,cube[i].first)) {
+		if (cube[i].second > 0 && l >= cube[i].first && w >= cube[i].first && h >= cube[i].first) {
 			cube[i].second--;
 			(*cnt)++;
 
-			fill(l, w, h - pow(2, cube[i].first), n, possible, cnt);
-			fill(l, w - pow(2, cube[i].first), pow(2, cube[i].first), n, possible, cnt);
-			fill(l - pow(2, cube[i].first), pow(2, cube[i].first), pow(2, cube[i].first), n, possible, cnt);
+			fill(l, w, h - cube[i].first, n, possible, cnt);
+			fill(l, w - cube[i].first, cube[i].first, n, possible, cnt);
+			fill(l - cube[i].first, cube[i].first, cube[i].first, n, possible, cnt);
 
 			return;
 		}
@@ -40,8 +40,12 @@ int main() {
 
 	scanf("%d %d %d %d", &l, &w, &h, &n);
 
-	for (int i = 0; i < n; i++)
-		scanf("%d %d", &cube[i].first, &cube[i].second);
+	for (int i = 0; i < n; i++) {
+		int x, y;
+		scanf("%d %d", &x, &y);
+		cube[i].first = (int)pow(2, x);
+		cube[i].second = y;
+	}
 
 	sort(cube, cube + n, cmp);
 
