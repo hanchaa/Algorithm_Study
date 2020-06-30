@@ -1,32 +1,34 @@
 #pragma warning (disable : 4996)
 #include <stdio.h>
 #include <algorithm>
+#include <queue>
 
 using namespace std;
 
-typedef struct schedule {
-	int start;
-	int finish;
-} Schedule;
-
-bool cmp(Schedule a, Schedule b) {
-	if (a.start == b.start)
-		return a.finish < b.finish;
-
-	else
-		return a.start < b.start;
-}
+pair<int, int> p[200000];
+priority_queue<int, vector<int>, greater<int>> pq;
 
 int main() {
-	int n, classroom[200000] = { 0 }, cnt = 0;
-	Schedule data[200000];
+	int n;
 
 	scanf("%d", &n);
 
 	for (int i = 0; i < n; i++)
-		scanf("%d %d", &data[i].start, &data[i].finish);
+		scanf("%d %d", &p[i].first, &p[i].second);
 
-	sort(data, data + n, cmp);
+	sort(p, p + n);
 
-	for (int i = 0; i < )
+	for (int i = 0; i < n; i++) {
+		if (!pq.empty() && pq.top() <= p[i].first) {
+			pq.pop();
+			pq.push(p[i].second);
+		}
+
+		else
+			pq.push(p[i].second);
+	}
+
+	printf("%d\n", pq.size());
+
+	return 0;
 }
