@@ -1,31 +1,35 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <algorithm>
 
-#define MAX(a, b)(a > b ? a : b)
-#define N 105
-#define M 100005
+#define MAX(a,b)(a>b?a:b)
 
-int t[N][M], w[N], v[N];
+using namespace std;
+
+pair<int, int> thing[1000];
+
+int dp[100][100005];
 
 int main() {
-	int n, m, i, j, k;
+	int n, k;
 
-	scanf("%d %d", &n, &m);
-	
-	for (i = 1; i <= n; i++) {
-		scanf("%d %d", &w[i], &v[i]);
-	}
+	scanf("%d %d", &n, &k);
 
-	for (i = 1; i <= n; i++) {
-		for (j = 1; j <= m; j++) {
-			if (j - w[i] >= 0)
-				t[i][j] = MAX(t[i - 1][j], t[i - 1][j - w[i]] + v[i]);
-			else
-				t[i][j] = t[i - 1][j];
+	for (int i = 0; i < n; i++)
+		scanf("%d %d", &thing[i].first, &thing[i].second);
+
+	for (int i = thing[0].first; i <= k; i++)
+		dp[0][i] = thing[0].second;
+
+	for (int i = 1; i < n; i++) {
+		for (int j = 1; j <= k; j++) {
+			dp[i][j] = dp[i - 1][j];
+
+			if (j >= thing[i].first)
+				dp[i][j] = MAX(dp[i][j], dp[i - 1][j - thing[i].first] + thing[i].second);
 		}
 	}
 
-	printf("%d\n", t[n][m]);
+	printf("%d\n", dp[n - 1][k]);
 
 	return 0;
 }
