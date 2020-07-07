@@ -13,18 +13,17 @@ int main() {
 	}
 
 	while (lo + 1 < hi) {
-		int cnt = 0;
-		long long mid = (lo + hi) / 2, sum = 0;
+		int mid = (lo + hi) / 2, sum = 0, cnt = 0;
 
 		int i = 0;
 
 		while (cnt < m && i < n) {
 			sum += data[i++];
-			
+
 			if (sum > mid) {
 				sum = 0;
-				cnt++;
 				i--;
+				cnt++;
 			}
 		}
 
