@@ -17,10 +17,18 @@ int main() {
 	hi = n;
 
 	while (lo + 1 < hi) {
-		int mid = (lo + hi) / 2, cnt = 0;
+		int mid = (lo + hi) / 2;
+		long long cnt = 0;
 
-		for (int i = 0; i < k; i++)
-			cnt += (mid - rule[i].start) / rule[i].interval + 1;
+		for (int i = 0; i < k; i++) {
+			if (mid - rule[i].start >= 0) {
+				if (mid > rule[i].finish)
+					cnt += (rule[i].finish - rule[i].start) / rule[i].interval + 1;
+
+				else
+					cnt += (mid - rule[i].start) / rule[i].interval + 1;
+			}
+		}
 
 		if (cnt >= d)
 			hi = mid;
