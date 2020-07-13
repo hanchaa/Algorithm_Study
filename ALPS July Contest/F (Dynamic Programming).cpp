@@ -20,8 +20,10 @@ int main() {
 	for (int i = 0; i < n; i++)
 		scanf("%d", falling + i);
 
-	for (int i = 1; i <= k; i++)
+	for (int i = 1; i <= k; i++) {
 		scanf("%d %d", &block[i].first, &block[i].second);
+		dp[i][0].cnt.push_back(1);
+	}
 
 	for (int i = 1; i <= 10; i++)
 		dp[0][i].cost = 2e9;
