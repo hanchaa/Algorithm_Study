@@ -1,56 +1,59 @@
 #include <iostream>
 #include <cstdio>
 #include <string>
-#include <unordered_map>
+#include <cstring>
+#include <map>
 
 using namespace std;
 
-unordered_map<string, pair<string, int>> relation;
+int parent[200000];
 
-pair<string, int> find(string name) {
-	if (relation[name].first == name)
-		return relation[name];
+int find(int n) {
+	if (parent[n] < 0)
+		return n;
 
-	else
-		return relation[name] = find(relation[name].first);
+	return parent[n] = find(parent[n]);
 }
 
-int merge(string a, string b) {
-	string aParent = find(a).first, bParent = find(b).first;
+int merge(int a, int b) {
+	int aParent = find(a), bParent = find(b);
 
 	if (aParent == bParent)
-		return relation[aParent].second;
+		return -parent[aParent];
 
-	relation[aParent].second += relation[bParent].second;
-	relation[bParent] = relation[aParent];
+	parent[aParent] += parent[bParent];
+	parent[bParent] = aParent;
 
-	return relation[aParent].second;
+	return -parent[aParent];
 }
 
 int main() {
 	ios_base::sync_with_stdio(0);
+	cin.tie(0);
 
-	int testCase;
-	scanf("%d", &testCase);
+	int tc;
+	cin >> tc;
 
-	for (int i = 0; i < testCase; i++) {
-		int f;
-		scanf("%d", &f);
+	for (int i = 0; i < tc; i++) {
+		int f, idx = 0;
+		cin >> f;
+
+		map<string, int> nameIndex;
+
+		memset(parent, -1, sizeof(parent));
 
 		for (int j = 0; j < f; j++) {
 			string a, b;
 
 			cin >> a >> b;
 
-			if (relation.find(a) == relation.end())
-				relation[a] = make_pair(a, 1);
+			if (nameIndex.find(a) == nameIndex.end())
+				nameIndex[a] = idx++;
 
-			if (relation.find(b) == relation.end())
-				relation[b] = make_pair(b, 1);
+			if (nameIndex.find(b) == nameIndex.end())
+				nameIndex[b] = idx++;
 
-			printf("%d\n", merge(a, b));
+			printf("%d\n", merge(nameIndex[a], nameIndex[b]));
 		}
-
-		relation.clear();
 	}
 }
