@@ -1,27 +1,35 @@
 #include <stdio.h>
+
 #define MIN(a,b)(a<b?a:b)
 
-int data[1005][5],t[1005][5];
+int main() {
+	int n, color[3], dp[1000][3] = { 0 };
 
-int main(void)
-{
-    freopen("input.txt","r",stdin);
-    int n,i,j,k;
-    scanf("%d",&n);
-    for(i=1;i<=n;i++) { scanf("%d %d %d",&data[i][1],&data[i][2],&data[i][3]); t[i][1]=t[i][2]=t[i][3]=1e9; }
-    for(i=1;i<=3;i++) t[1][i]=data[1][i];
-    for(i=2;i<=n;i++)
-    {
-        for(j=1;j<=3;j++)
-        {
-            for(k=1;k<=3;k++)
-            {
-                if(k==j) continue;
-                t[i][j]=MIN(t[i][j],t[i-1][k]+data[i][j]);
-            }
-        }
-    }
-    k=1e9;
-    for(i=1;i<=3;i++) k=MIN(k,t[n][i]);
-    printf("%d",k);
+	scanf("%d", &n);
+
+	scanf("%d %d %d", &dp[0][0], &dp[0][1], &dp[0][2]);
+
+	for (int i = 1; i < n; i++) {
+		scanf("%d %d %d", color + 0, color + 1, color + 2);
+
+		for (int j = 0; j < 3; j++) {
+			if (j == 0)
+				dp[i][j] = MIN(dp[i - 1][1], dp[i - 1][2]) + color[j];
+
+			else if (j == 1)
+				dp[i][j] = MIN(dp[i - 1][0], dp[i - 1][2]) + color[j];
+
+			else
+				dp[i][j] = MIN(dp[i - 1][0], dp[i - 1][1]) + color[j];
+		}
+	}
+
+	int res = 2e9;
+
+	for (int i = 0; i < 3; i++)
+		res = MIN(res, dp[n - 1][i]);
+
+	printf("%d", res);
+
+	return 0;
 }
