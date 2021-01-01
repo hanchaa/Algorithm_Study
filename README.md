@@ -1,24 +1,19 @@
 # Algorithm-Study
-알고리즘 공부를 하며 푼 문제들
+### 🖥Archives of problem solving
 
 
-====site====
+## Sites
 
-acmicpc.net
+[Baekjoon Online Judge](https://acmicpc.net)
 
-dovlet.com
+[Dovelet](https://dovelet.com)
 
-============
+## Tags
 
+- x - Wrong Answer
 
-=====꼬리표=====
+- r - Runtime Error
 
-x - 오답
+- m - Memory Exceeded
 
-r - 런타임 에러
-
-m - 메모리 초과
-
-u - 미완성
-
-===============
+- u - Not Compeleted
